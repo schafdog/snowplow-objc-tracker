@@ -23,55 +23,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                          withCompletionHandler completionHandler: @escaping () -> Void) {
 
         let actionIdentifier = response.actionIdentifier
-
+        if let rootViewController = window?.rootViewController as? PageViewController {
         switch actionIdentifier {
-        case UNNotificationDismissActionIdentifier: // Notification was dismissed by user
-            // Do something
-            completionHandler()
-        case UNNotificationDefaultActionIdentifier: // App was opened from notification
-            NSLog("Remote notification opened app from background!")
-            if let rootViewController = window?.rootViewController as? PageViewController {
+            case UNNotificationDismissActionIdentifier: // Notification was dismissed by user
+                //
+                rootViewController.tracker?.track(/* PushNotification DISMISS */ AppViewEvent("PushNotificationId", screenName: "DISMISSED"));
+                // Do something
+                completionHandler()
+            case UNNotificationDefaultActionIdentifier: // App was opened from notification
+                NSLog("Remote notification opened app from background!")
+    
+                    NSLog("Notification action identifier: %@", actionIdentifier)
 
-                NSLog("Notification action identifier: %@", actionIdentifier)
-
-                let request = response.notification.request
-                let requestContent = request.content
-                let userInfo = requestContent.userInfo
-                let sound = userInfo["sound"] as? String ?? "unknown"
-
-                let content = SPNotificationContent.build({(builder : SPNotificationContentBuilder?) -> Void in
-                    builder!.setTitle(requestContent.title)
-                    builder!.setSubtitle(requestContent.subtitle)
-                    builder!.setBody(requestContent.body)
-                    builder!.setBadge(requestContent.badge)
-                    builder!.setSound(sound)
-                    builder!.setLaunchImageName(requestContent.launchImageName)
-                    builder!.setUserInfo(userInfo)
-                    builder!.setAttachments(SPUtilities.convert(request.content.attachments))
-                })
-
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .medium
-                formatter.locale = Locale(identifier: "en_US")
-                let dateString = formatter.string(from: response.notification.date)
-                
-                let event = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
-                    builder!.setAction(actionIdentifier)
-                    builder!.setTrigger(SPUtilities.getTriggerType(request.trigger))
-                    builder!.setDeliveryDate(dateString)
-                    builder!.setCategoryIdentifier(requestContent.categoryIdentifier)
-                    builder!.setThreadIdentifier(requestContent.threadIdentifier)
-                    builder!.setNotification(content)
-                })
-                
-                //print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
-                rootViewController.tracker?.trackPushNotificationEvent(event)
+                    let event = buildEventFrom(response, actionIdentifier: actionIdentifier)
+                    //print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
+                    rootViewController.tracker?.track(event)
+                completionHandler()
+            default:
+                completionHandler()
             }
-            completionHandler()
-        default:
-            completionHandler()
         }
+    }
+    
+    func buildEventFrom(_ response: UNNotificationResponse, actionIdentifier: String) -> AgillicEvent {
+        let request = response.notification.request
+        let requestContent = request.content
+        let userInfo = requestContent.userInfo
+        let sound = userInfo["sound"] as? String ?? "unknown"
+        let pnContent = SPNotificationContent.build({(builder : SPNotificationContentBuilder?) -> Void in
+            builder!.setTitle(requestContent.title)
+            builder!.setSubtitle(requestContent.subtitle)
+            builder!.setBody(requestContent.body)
+            builder!.setBadge(requestContent.badge)
+            builder!.setSound(sound)
+            builder!.setLaunchImageName(requestContent.launchImageName)
+            builder!.setUserInfo(userInfo)
+            builder!.setAttachments(SPUtilities.convert(request.content.attachments))
+        })
+
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        formatter.locale = Locale(identifier: "en_US")
+        let dateString = formatter.string(from: response.notification.date)
+        
+        let event = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
+            builder!.setAction(actionIdentifier)
+            builder!.setTrigger(SPUtilities.getTriggerType(request.trigger))
+            builder!.setDeliveryDate(dateString)
+            builder!.setCategoryIdentifier(requestContent.categoryIdentifier)
+            builder!.setThreadIdentifier(requestContent.threadIdentifier)
+            builder!.setNotification(pnContent)
+        })
+
+        return AppViewEvent("pushNotificationId")
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

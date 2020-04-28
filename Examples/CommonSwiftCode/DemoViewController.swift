@@ -23,7 +23,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     @IBOutlet weak var trackingSwitch: UISegmentedControl!
     @IBOutlet weak var protocolSwitch: UISegmentedControl!
     @IBOutlet weak var methodSwitch: UISegmentedControl!
-    weak var tracker : SPTracker?
+    weak var tracker : AgillicTracker?
 
     var parentPageViewController: PageViewController!
     @objc dynamic var snowplowId: String! = "demo view"
@@ -34,11 +34,12 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     }
 
     @objc func action() {
+        
         let tracking: Bool = (trackingSwitch.selectedSegmentIndex == 0)
-        if (tracking && !(tracker?.getIsTracking() ?? false)) {
-            tracker?.resumeEventTracking()
-        } else if (tracker?.getIsTracking() ?? false) {
-            tracker?.pauseEventTracking()
+        if (tracking && !(tracker?.isTracking() ?? false)) {
+            tracker?.resumeTracking()
+        } else if (tracker?.isTracking() ?? false) {
+            tracker?.pauseTracking()
         }
     }
     
@@ -83,15 +84,16 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
             }
             
             // Update the tracker
-            self.tracker?.emitter.setUrlEndpoint(url)
-            self.tracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
-            self.tracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
+            let spTracker = self.tracker?.getSPTracker()
+            // spTracker?.emitter.setUrlEndpoint(url)
+            spTracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
+            spTracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
             
             // Iterate the made counter
             self.parentPageViewController.madeCounter += 28;
             
             // Track all types of events
-            DemoUtils.trackAll(self.parentPageViewController.tracker)
+            //DemoUtils.trackAll(self.parentPageViewController.tracker)
         }
     }
 }

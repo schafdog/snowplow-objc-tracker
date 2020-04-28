@@ -12,14 +12,31 @@ import SnowplowTracker
 
 class AgillicTracker  {
     var tracker: SPTracker
-    
+    var enabled = true
+
     init(_ tracker: SPTracker) {
         self.tracker = tracker
     }
     
     func track(_ event : AgillicEvent) {
-        event.track(tracker)
+        if (enabled) {
+            event.track(tracker)
+        }
+    }
+    
+    func getSPTracker() -> SPTracker {
+        return tracker
     }
 
+    func pauseTracking() {
+        enabled = false
+    }
 
+    func resumeTracking() {
+        enabled = false
+    }
+    
+    func isTracking() -> Bool {
+        return enabled
+    }
 }

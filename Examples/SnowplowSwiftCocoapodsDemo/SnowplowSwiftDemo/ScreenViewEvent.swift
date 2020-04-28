@@ -11,15 +11,15 @@ import SnowplowTracker
 
 class AppViewEvent : AgillicEvent {
     func getSnowplowEvent() -> SPEvent? {
-        <#code#>
+        return nil
     }
     
     var screenId: String
     var screenName: String
     
-    init(_ screenId: String, screenName: String) {
+    init(_ screenId: String, screenName: String? = nil) {
         self.screenId = screenId;
-        self.screenName = screenName;
+        self.screenName = screenName != nil ? screenName! : screenId;
     }
     
     func getSnowplowEvent() -> SPScreenView? {

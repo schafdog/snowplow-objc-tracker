@@ -10,18 +10,26 @@ import Foundation
 import SnowplowTracker
 
 class AgillicSDK {
-    private let urlFormat = "https://api%s-eu1.agillic.net";
-    private var url: String?;
+    private let urlFormat = "https://api%@-eu1.agillic.net";
     private var collectorEndpoint = "https://snowplowtrack-eu1.agillic.net";
-    private var auth: BasicAuth? = nil;
+    private var auth: Auth? = nil;
     private var methodType : SPRequestOptions = .post
     private var protocolType : SPProtocol = .http
+    private var tracker: SPTracker?
+    private var clientAppId: String = "N/A"
+    private var clientAppVersion: String = "N/A"
+    private var pushNotificationToken: String?
+    private var registrationEndpoint: String?
 
+    func setAuth(_ auth: Auth) {
+        self.auth = auth;
+    }
+    
     func setAPI(_ api: String) {
-        url = String(format: urlFormat, api );
+        registrationEndpoint = String(format: urlFormat, api );
     }
 
-    init(url: String) {
+    init() {
         setAPI("");
     }
     
@@ -63,14 +71,47 @@ class AgillicSDK {
     }
 
 
-    func register(appID: String, clientAppId: String, clientAppVersion: String,
-                  userID: String, pushNotificationToken: String) -> AgillicTracker
+    func register(clientAppId: String, clientAppVersion: String,
+                  solutionId: String, userID: String,
+                  pushNotificationToken: String?) -> AgillicTracker
     {
-        let tracker = getTracker(collectorEndpoint, method: methodType, userId: userID, appId: appID)
-        let agiTracker = AgillicTracker(tracker);
-        
+        tracker = getTracker(collectorEndpoint, method: methodType, userId: userID, appId: solutionId)
+        let agiTracker = AgillicTracker(tracker!);
+        createMobileRegistration()
         return agiTracker;
         
+    }
+    
+    func createMobileRegistration() {
+        
+        guard let endpointUrl = URL(string: registrationEndpoint!) else {
+            return
+        }
+        
+        //Make JSON to send to send to server
+        let json : [String:String] = ["appInstallationId": tracker!.getSessionUserId(),
+                                      "clientAppId": self.clientAppId,
+                                      "clientAppVersion": self.clientAppVersion,
+                                      "pushNotificationToken" :
+                                        self.pushNotificationToken != nil ? self.pushNotificationToken! : "",
+                                      "deviceModel": SPUtilities.getDeviceModel(),
+                                      "modelDimX" :  SPUtilities.getResolution(),
+                                      "modelDimY" :  SPUtilities.getResolution()]
+        do {
+            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+            
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "POST"
+            request.httpBody = data
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+            let task = URLSession.shared.dataTask(with: request)
+            task.resume()
+
+            
+        }catch{
+        }
     }
 }
 

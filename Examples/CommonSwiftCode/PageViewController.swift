@@ -9,9 +9,10 @@
 import UIKit
 import SnowplowTracker
 
+
 class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, SPRequestCallback {
 
-    var tracker : SPTracker!
+    var tracker : AgillicTracker!
     var madeCounter : Int = 0
     var sentCounter : Int = 0
     var uri : String = ""
@@ -22,6 +23,10 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
 
     let kAppId     = "DemoAppId"
     let kNamespace = "DemoAppNamespace"
+    let userId = "dennis.schafroth@agillic.com"
+    let solutionId : String = "qrcqkw" // Passed down in/after login;
+    let key = "MwtOtOMAeJqs"
+    let secret = "znwVurQAf1AO9qvd"
 
     // Tracker setup and init
 
@@ -43,7 +48,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setSessionContext(true)
             builder!.setSubject(subject)
             builder!.setLifecycleEvents(true)
-            builder!.setAutotrackScreenViews(true)
+            builder!.setAutotrackScreenViews(false)
             builder!.setScreenContext(true)
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
@@ -68,8 +73,16 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
         return self.protocolType
     }
     
+    func setupSnowplowTracker() {
+        //self.tracker = self.getTracker("", method: .post)
+    }
+
     func setup() {
-        self.tracker = self.getTracker("acme.fake.com", method: .post)
+        let agillicSDK = AgillicSDK()
+        agillicSDK.setDevAPI();
+        agillicSDK.setAuth(BasicAuth(user: key, password: secret))
+        tracker = agillicSDK.register(clientAppId: kAppId, clientAppVersion: "N/A", solutionId: solutionId, userID: userId, pushNotificationToken: nil)
+        
     }
 
     func newVc(viewController: String) -> UIViewController {
