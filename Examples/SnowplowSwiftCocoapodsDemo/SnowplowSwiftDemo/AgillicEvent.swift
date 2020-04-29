@@ -10,7 +10,6 @@ import Foundation
 import SnowplowTracker
 
 protocol AgillicEvent {
-    func getSnowplowEvent() -> SPEvent?;
     func track(_ tracker: AgillicTracker);
     func track(_ tracker: SPTracker);
 }
