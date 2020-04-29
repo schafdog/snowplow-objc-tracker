@@ -78,22 +78,23 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     @IBAction func trackEvents(_ sender: UIButton) {
         UserDefaults.standard.set(uriField.text ?? "", forKey: keyUriField);
         DispatchQueue.global(qos: .default).async {
+            self.parentPageViewController.setup()
             let url = self.parentPageViewController.getCollectorUrl()
             if url == "" {
                 return
             }
             
             // Update the tracker
-            let spTracker = self.tracker?.getSPTracker()
-            // spTracker?.emitter.setUrlEndpoint(url)
-            spTracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
-            spTracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
+            //let spTracker = self.tracker?.getSPTracker()
+            //spTracker?.emitter.setUrlEndpoint(url)
+            //spTracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
+            //spTracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
             
             // Iterate the made counter
-            self.parentPageViewController.madeCounter += 28;
+            //self.parentPageViewController.madeCounter += 28;
             
             // Track all types of events
-            //DemoUtils.trackAll(self.parentPageViewController.tracker)
+            DemoUtils.trackAll(self.parentPageViewController.tracker.getSPTracker())
         }
     }
 }
