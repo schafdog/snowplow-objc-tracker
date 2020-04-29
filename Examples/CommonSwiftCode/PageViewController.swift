@@ -16,7 +16,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     var madeCounter : Int = 0
     var sentCounter : Int = 0
     var uri : String = ""
-    var methodType : SPRequestOptions = .get
+    var methodType : SPRequestOptions = .post
     var protocolType : SPProtocol = .http
     var token : String = ""
     @objc dynamic var snowplowId: String! = "page view"
@@ -79,7 +79,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
 
     func setup() {
         let agillicSDK = AgillicSDK()
-        agillicSDK.setDevAPI();
+        agillicSDK.setTestAPI();
         agillicSDK.setAuth(BasicAuth(user: key, password: secret))
         tracker = agillicSDK.register(clientAppId: kAppId, clientAppVersion: "N/A", solutionId: solutionId, userID: userId, pushNotificationToken: nil)
         
