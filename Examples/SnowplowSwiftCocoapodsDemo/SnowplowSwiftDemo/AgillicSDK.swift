@@ -11,7 +11,7 @@ import SnowplowTracker
 
 class AgillicSDK {
     private let urlFormat = "https://api%@-eu1.agillic.net";
-    private var collectorEndpoint = "https://snowplowtrack-eu1.agillic.net";
+    private var collectorEndpoint = "localhost:9090";
     private var auth: Auth? = nil;
     private var methodType : SPRequestOptions = .post
     private var protocolType : SPProtocol = .http
@@ -20,6 +20,8 @@ class AgillicSDK {
     private var clientAppVersion: String = "N/A"
     private var pushNotificationToken: String?
     private var registrationEndpoint: String?
+    private var userId: String?
+    private var count = 0
 
     func setAuth(_ auth: Auth) {
         self.auth = auth;
@@ -46,7 +48,7 @@ class AgillicSDK {
             builder!.setUrlEndpoint(url)
             builder!.setHttpMethod(method)
             //builder!.setCallback(self)
-            builder!.setProtocol(SPProtocol.https)
+            builder!.setProtocol(SPProtocol.http)
             builder!.setEmitRange(500)
             builder!.setEmitThreadPoolSize(20)
             builder!.setByteLimitPost(52000)
@@ -75,6 +77,12 @@ class AgillicSDK {
                   solutionId: String, userID: String,
                   pushNotificationToken: String?) -> AgillicTracker
     {
+        self.clientAppId = clientAppId
+        self.clientAppVersion = clientAppVersion
+        // self.solutionId
+        self.userId = userID
+        self.pushNotificationToken = pushNotificationToken
+
         tracker = getTracker(collectorEndpoint, method: methodType, userId: userID, appId: solutionId)
         let agiTracker = AgillicTracker(tracker!);
         createMobileRegistration()
@@ -83,8 +91,9 @@ class AgillicSDK {
     }
     
     func createMobileRegistration() {
-        
-        guard let endpointUrl = URL(string: registrationEndpoint!) else {
+        let fullRegistrationUrl = String(format: "%@/register/%@", self.registrationEndpoint!, self.userId!)
+        guard let endpointUrl = URL(string: fullRegistrationUrl) else {
+            NSLog("Failed to create registration URL %@", fullRegistrationUrl)
             return
         }
         
@@ -95,25 +104,55 @@ class AgillicSDK {
                                       "pushNotificationToken" :
                                         self.pushNotificationToken != nil ? self.pushNotificationToken! : "",
                                       "deviceModel": SPUtilities.getDeviceModel(),
-                                      "modelDimX" :  SPUtilities.getResolution(),
-                                      "modelDimY" :  SPUtilities.getResolution()]
+                                      "modelDimX" :  getXDimension(SPUtilities.getResolution()),
+                                      "modelDimY" :  getYDimension(SPUtilities.getResolution())]
         do {
             let data = try JSONSerialization.data(withJSONObject: json, options: [])
-            
+            // Convert to a string and print
+            if let JSONString = String(data: data, encoding: String.Encoding.utf8) {
+               NSLog("Registration JSON: %@", JSONString)
+            }
+    
             var request = URLRequest(url: endpointUrl)
-            request.httpMethod = "POST"
+            let authorization = auth!.getAuthInfo()
+            request.httpMethod = "PUT"
             request.httpBody = data
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(authorization, forHTTPHeaderField: "Authorization")
 
-            let task = URLSession.shared.dataTask(with: request)
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] data, response, error in
+                if let error = error {
+                    NSLog("Failed to register: %@", error.localizedDescription)
+                    self!.count += 1;
+                    if self!.count < 3 {
+                        sleep(2000)
+                        self!.createMobileRegistration()
+                    }
+                } else {
+                    let response = response as? HTTPURLResponse
+                    NSLog("Register: %d", response!.statusCode)
+                }
+            })
             task.resume()
-
-            
-        }catch{
+            NSLog("Registration sendt")
+        } catch{
+            NSLog("Registration Exception")
         }
     }
+    
+    func getXDimension(_ resolution: String) -> String {
+        let slices = resolution.split(separator:"x")
+        return String(slices.first ?? "?")
+    }
+
+    func getYDimension(_ resolution: String) -> String {
+        let slices = resolution.split(separator:"x")
+        return String(slices.last ?? "?")
+    }
+
 }
+
 
 class Auth {
     
