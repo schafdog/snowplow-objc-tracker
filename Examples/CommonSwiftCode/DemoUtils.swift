@@ -69,36 +69,20 @@ class DemoUtils {
     }
     
     static func trackScreenViewWithTracker(_ tracker: SPTracker) {
-        let screenId = UUID().uuidString
-        var event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
-            builder!.setName("DemoScreenName")
+        let screenId = "Login/Register"
+        let event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setScreenId(screenId)
-        })
-        tracker.trackScreenViewEvent(event)
-        
-        event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setScreenId(screenId)
-            builder!.setTimestamp(1243567890)
         })
         tracker.trackScreenViewEvent(event)
     }
     
     static func trackTimingWithCategoryWithTracker(_ tracker: SPTracker) {
-        var event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in
+        let event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in
             builder!.setCategory("DemoTimingCategory")
             builder!.setVariable("DemoTimingVariable")
             builder!.setTiming(5)
             builder!.setLabel("DemoTimingLabel")
-        })
-        tracker.trackTimingEvent(event)
-        
-        event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in
-            builder!.setCategory("DemoTimingCategory")
-            builder!.setVariable("DemoTimingVariable")
-            builder!.setTiming(5)
-            builder!.setLabel("DemoTimingLabel")
-            builder!.setTimestamp(1243567890)
         })
         tracker.trackTimingEvent(event)
     }
