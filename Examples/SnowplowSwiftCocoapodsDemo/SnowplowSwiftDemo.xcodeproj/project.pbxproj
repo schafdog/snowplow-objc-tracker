@@ -10,6 +10,7 @@
 		0279DA00FA0D2C080877FA1A /* libPods-SnowplowSwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98DF38E997853AAC68AAD3A5 /* libPods-SnowplowSwiftDemo.a */; };
 		75699CBB200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */; };
 		75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */; };
+		953C7E9E2458BD70007B2506 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953C7E9D2458BD70007B2506 /* PushNotification.swift */; };
 		95C481EF2457197700D583B3 /* AgillicSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C481EE2457197700D583B3 /* AgillicSDK.swift */; };
 		95C481F124571A5400D583B3 /* AgillicTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C481F024571A5400D583B3 /* AgillicTracker.swift */; };
 		95C481F32457324C00D583B3 /* AgillicEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C481F22457324C00D583B3 /* AgillicEvent.swift */; };
@@ -121,6 +122,7 @@
 		75F9C5F621FC004100A5B8FC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
 		8D2F6C53F4EFCA10778B4A5E /* Pods-SnowplowSwiftWatch Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowSwiftWatch Extension.debug.xcconfig"; path = "Target Support Files/Pods-SnowplowSwiftWatch Extension/Pods-SnowplowSwiftWatch Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		8F2BBA65C9AD241EEB7BBB3A /* Pods-SnowplowSwiftDemoWatch WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowSwiftDemoWatch WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-SnowplowSwiftDemoWatch WatchKit Extension/Pods-SnowplowSwiftDemoWatch WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		953C7E9D2458BD70007B2506 /* PushNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		95C481EE2457197700D583B3 /* AgillicSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgillicSDK.swift; sourceTree = "<group>"; };
 		95C481F024571A5400D583B3 /* AgillicTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgillicTracker.swift; sourceTree = "<group>"; };
 		95C481F22457324C00D583B3 /* AgillicEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgillicEvent.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				95C481F024571A5400D583B3 /* AgillicTracker.swift */,
 				95C481F22457324C00D583B3 /* AgillicEvent.swift */,
 				95C481F42457763200D583B3 /* ScreenViewEvent.swift */,
+				953C7E9D2458BD70007B2506 /* PushNotification.swift */,
 			);
 			path = SnowplowSwiftDemo;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				ED8A3EC42371684500E51827 /* MetricsViewController.swift in Sources */,
 				ED8A3EC12371684500E51827 /* DemoUtils.swift in Sources */,
 				95C481F124571A5400D583B3 /* AgillicTracker.swift in Sources */,
+				953C7E9E2458BD70007B2506 /* PushNotification.swift in Sources */,
 				95C481F52457763200D583B3 /* ScreenViewEvent.swift in Sources */,
 				95C481EF2457197700D583B3 /* AgillicSDK.swift in Sources */,
 				ED8A3EC52371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
