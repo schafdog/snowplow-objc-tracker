@@ -11,7 +11,7 @@ import SnowplowTracker
 
 class AgillicSDK {
     private let urlFormat = "https://api%@-eu1.agillic.net";
-    private var collectorEndpoint = "localhost:9090";
+    private var collectorEndpoint = "localhost:8291";
     private var auth: Auth? = nil;
     private var methodType : SPRequestOptions = .post
     private var protocolType : SPProtocol = .http
