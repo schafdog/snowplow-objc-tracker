@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPSchemaRuleset ()
 
-@property (nonatomic, copy) NSMutableArray<SPSchemaRule *> *rulesAllowed;
-@property (nonatomic, copy) NSMutableArray<SPSchemaRule *> *rulesDenied;
+@property (nonatomic) NSMutableArray<SPSchemaRule *> *rulesAllowed;
+@property (nonatomic) NSMutableArray<SPSchemaRule *> *rulesDenied;
 
 @end
 

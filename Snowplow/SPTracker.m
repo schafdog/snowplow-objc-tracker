@@ -202,10 +202,10 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setEventData:installEvent];
             }];
             [self trackUnstructuredEvent:event];
-            if (previousTimestamp) {
+            if (previousTimestamp == nil) {
                 [installTracker clearPreviousInstallTimestamp];
             }
-        } else if (previousTimestamp) {
+        } else if (previousTimestamp == nil) {
             SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
             SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
                 [builder setEventData:installEvent];

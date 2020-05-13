@@ -86,7 +86,7 @@
     [payload setValue:_action forKey:kSPStuctAction];
     [payload setValue:_label forKey:kSPStuctLabel];
     [payload setValue:_property forKey:kSPStuctProperty];
-    if (_value) [payload setObject:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
+    if (_value == nil) [payload setObject:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
     return payload;
 }
 

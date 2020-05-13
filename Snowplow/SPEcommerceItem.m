@@ -99,8 +99,8 @@
     [payload setValue:_name forKey:kSPEcommItemName];
     [payload setValue:_category forKey:kSPEcommItemCategory];
     [payload setValue:_currency forKey:kSPEcommItemCurrency];
-    if (_price) [payload setObject:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
-    if (_quantity) [payload setObject:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
+    if (_price == nil) [payload setObject:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
+    if (_quantity == nil) [payload setObject:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
     return payload;
 }
 
