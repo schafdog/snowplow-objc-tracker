@@ -27,6 +27,7 @@ class MetricsViewController: UIViewController, UITextFieldDelegate, PageObserver
     weak var tracker : AgillicTracker?
 
     @objc dynamic var snowplowId: String! = "metrics view"
+    var uuid : UUID = UUID.init();
 
     func updateToken(_ token: String) {
         tokenLabel.text = String(format: "Token: %@", token)
@@ -41,7 +42,11 @@ class MetricsViewController: UIViewController, UITextFieldDelegate, PageObserver
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateMetrics), userInfo: nil, repeats: true)
-        // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        let event = AppViewEvent(uuid.uuidString, screenName: "app_protocol://iosapp/metrics/2")
+        parentPageViewController.tracker?.track(event)
     }
     
     @objc func updateMetrics() {

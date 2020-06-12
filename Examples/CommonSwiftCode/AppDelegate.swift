@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         formatter.locale = Locale(identifier: "en_US")
         let dateString = formatter.string(from: response.notification.date)
         
-        let event = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
+        let _ = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
             builder!.setAction(actionIdentifier)
             builder!.setTrigger(SPUtilities.getTriggerType(request.trigger))
             builder!.setDeliveryDate(dateString)

@@ -19,14 +19,14 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     var methodType : SPRequestOptions = .post
     var protocolType : SPProtocol = .http
     var token : String = ""
-    @objc dynamic var snowplowId: String! = "page view"
+    @objc dynamic var snowplowId: String! = "iOS/page view"
 
     let kAppId     = "DemoAppId"
     let kNamespace = "DemoAppNamespace"
     let userId = "dennis.schafroth@agillic.com"
-    let solutionId : String = "qrcqkw" // Passed down in/after login;
-    let key = "MwtOtOMAeJqs"
-    let secret = "znwVurQAf1AO9qvd"
+    let solutionId : String = "15arnn5" // Passed down in/after login;
+    let key = "F6xRABtMVG9h"
+    let secret = "yOdwUJlBB6g9kZoi"
 
     // Tracker setup and init
 
@@ -77,11 +77,11 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
         //self.tracker = self.getTracker("", method: .post)
     }
 
-    func setup() {
+    func setup(login : String?) {
         let agillicSDK = AgillicSDK()
         agillicSDK.setTestAPI();
         agillicSDK.setAuth(BasicAuth(user: key, password: secret))
-        tracker = agillicSDK.register(clientAppId: kAppId, clientAppVersion: "N/A", solutionId: solutionId, userID: userId, pushNotificationToken: nil)
+        tracker = agillicSDK.register(clientAppId: kAppId, clientAppVersion: "1.0", solutionId: solutionId, userID: login != nil ? login! : self.userId , pushNotificationToken: nil)
         
     }
 
@@ -146,7 +146,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
-        self.setup()
+        //self.setup()
         // This sets up the first view that will show up on our page control
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],

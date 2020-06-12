@@ -24,6 +24,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     @IBOutlet weak var protocolSwitch: UISegmentedControl!
     @IBOutlet weak var methodSwitch: UISegmentedControl!
     weak var tracker : AgillicTracker?
+    var uuid : UUID = UUID.init();
 
     var parentPageViewController: PageViewController!
     @objc dynamic var snowplowId: String! = "demo view"
@@ -32,7 +33,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
         parentPageViewController = parentRef
         tracker = parentRef.tracker
     }
-
+    
     @objc func action() {
         
         let tracking: Bool = (trackingSwitch.selectedSegmentIndex == 0)
@@ -75,26 +76,13 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
             .http: .https
     }
     
-    @IBAction func trackEvents(_ sender: UIButton) {
+    @IBAction func loginAndRegister(_ sender: UIButton) {
         UserDefaults.standard.set(uriField.text ?? "", forKey: keyUriField);
         DispatchQueue.global(qos: .default).async {
-            self.parentPageViewController.setup()
-            let url = self.parentPageViewController.getCollectorUrl()
-            if url == "" {
-                return
-            }
+            self.parentPageViewController.setup(login: self.uriField.text)
             
-            // Update the tracker
-            //let spTracker = self.tracker?.getSPTracker()
-            //spTracker?.emitter.setUrlEndpoint(url)
-            //spTracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
-            //spTracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
-            
-            // Iterate the made counter
-            //self.parentPageViewController.madeCounter += 28;
-            
-            // Track all types of events
-            DemoUtils.trackAll(self.parentPageViewController.tracker.getSPTracker())
+            let event = AppViewEvent(self.uuid.uuidString, screenName: "app_protocol://iosapp/demo/1")
+            self.parentPageViewController.tracker?.track(event)
         }
     }
 }
