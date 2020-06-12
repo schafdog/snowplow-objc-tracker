@@ -46,7 +46,6 @@
 		752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7534D20122569BED00904EE5 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
@@ -173,6 +172,7 @@
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		95E843F6246D1695008D358B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		ED26E6BA23842AB00096AF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED26E6B923842AAF0096AF7C /* AdSupport.framework */; };
 		ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
@@ -182,8 +182,6 @@
 		ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -192,6 +190,8 @@
 		ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
+		EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,8 +336,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				23DFEC7B2362FA5D00BD19C4 /* FMDB.framework in Frameworks */,
+				95E843F6246D1695008D358B /* CoreTelephony.framework in Frameworks */,
 				752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */,
-				752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,6 +1047,7 @@
 				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1101,6 +1102,7 @@
 				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
