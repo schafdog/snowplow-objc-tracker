@@ -11,10 +11,10 @@ import SnowplowTracker
 
 class AgillicSDK {
     private let urlFormat = "https://api%@-eu1.agillic.net";
-    private var collectorEndpoint = "localhost:8291";
+    private var collectorEndpoint = "snowplowtrack-eu1.agillic.net";
     private var auth: Auth? = nil;
     private var methodType : SPRequestOptions = .post
-    private var protocolType : SPProtocol = .http
+    private var protocolType : SPProtocol = .https
     private var tracker: SPTracker?
     private var clientAppId: String = "N/A"
     private var clientAppVersion: String = "N/A"
@@ -48,7 +48,7 @@ class AgillicSDK {
             builder!.setUrlEndpoint(url)
             builder!.setHttpMethod(method)
             //builder!.setCallback(self)
-            builder!.setProtocol(SPProtocol.http)
+            builder!.setProtocol(SPProtocol.https)
             builder!.setEmitRange(500)
             builder!.setEmitThreadPoolSize(20)
             builder!.setByteLimitPost(52000)
@@ -71,8 +71,8 @@ class AgillicSDK {
         })
         return newTracker!
     }
-
-
+    
+    
     func register(clientAppId: String, clientAppVersion: String,
                   solutionId: String, userID: String,
                   pushNotificationToken: String?) -> AgillicTracker
