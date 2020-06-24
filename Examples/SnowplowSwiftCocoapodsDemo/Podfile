@@ -1,14 +1,9 @@
  
 workspace 'SnowplowSwiftDemo.xcworkspace'
 
+use_frameworks!
+
 target 'SnowplowSwiftDemo' do
-    platform :ios, '9.0'
-    pod 'SnowplowTracker', :path=> '../../'
+    platform :ios, '10.0'
+    pod 'SnowplowTracker', '~> 1.3'
 end
-
-target 'SnowplowSwiftWatch Extension' do
-    platform :watchos, '4.0'
-    pod 'SnowplowTracker', :path=> '../../'
-end
-
-
