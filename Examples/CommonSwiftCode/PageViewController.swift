@@ -2,91 +2,33 @@
 //  PageViewController.swift
 //  SnowplowSwiftDemo
 //
-//  Copyright (c) 2015-2020 Snowplow Analytics Ltd. All rights reserved.
-//
-//  This program is licensed to you under the Apache License Version 2.0,
-//  and you may not use this file except in compliance with the Apache License
-//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
-//  http://www.apache.org/licenses/LICENSE-2.0.
-//
-//  Unless required by applicable law or agreed to in writing,
-//  software distributed under the Apache License Version 2.0 is distributed on
-//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-//  express or implied. See the Apache License Version 2.0 for the specific
-//  language governing permissions and limitations there under.
-//
-//  Authors: Michael Hadam
-//  Copyright: Copyright (c) 2015-2020 Snowplow Analytics Ltd
-//  License: Apache License Version 2.0
+//  Created by Michael Hadam on 3/4/19.
+//  Copyright © 2019 snowplowanalytics. All rights reserved.
 //
 
 import UIKit
 import SnowplowTracker
+import AgillicSDK
 
-class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, SPRequestCallback {
 
-    var tracker : SPTracker!
+class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+
+    var tracker : AgillicTracker?
     var madeCounter : Int = 0
     var sentCounter : Int = 0
     var uri : String = ""
-    var methodType : SPRequestOptions = .get
-    var protocolType : SPProtocol = .http
+    var methodType : SPRequestOptions = .post
+    var protocolType : SPProtocol = .https
     var token : String = ""
-    @objc dynamic var snowplowId: String! = "page view"
+    @objc dynamic var snowplowId: String! = "iOS/page view"
 
     let kAppId     = "DemoAppId"
     let kNamespace = "DemoAppNamespace"
-
-    // Tracker setup and init
-
-    func getTracker(_ url: String, method: SPRequestOptions) -> SPTracker {
-        let emitter = SPEmitter.build({ (builder : SPEmitterBuilder?) -> Void in
-            builder!.setUrlEndpoint(url)
-            builder!.setHttpMethod(method)
-            builder!.setCallback(self)
-            builder!.setEmitRange(500)
-            builder!.setEmitThreadPoolSize(20)
-            builder!.setByteLimitPost(52000)
-        })
-        let subject = SPSubject(platformContext: true, andGeoContext: false)
-        let newTracker = SPTracker.build({ (builder : SPTrackerBuilder?) -> Void in
-            builder!.setEmitter(emitter)
-            builder!.setAppId(self.kAppId)
-            builder!.setTrackerNamespace(self.kNamespace)
-            builder!.setBase64Encoded(false)
-            builder!.setSessionContext(true)
-            builder!.setSubject(subject)
-            builder!.setLifecycleEvents(true)
-            builder!.setAutotrackScreenViews(true)
-            builder!.setScreenContext(true)
-            builder!.setApplicationContext(true)
-            builder!.setExceptionEvents(true)
-            builder!.setInstallEvent(true)
-            builder!.setGlobalContextGenerators([
-                "ruleSetExampleTag": self.ruleSetGlobalContextExample(),
-                "staticExampleTag": self.staticGlobalContextExample(),
-            ])
-            builder!.setGdprContextWith(SPGdprProcessingBasis.consent, documentId: "id", documentVersion: "1.0", documentDescription: "description")
-        })
-        return newTracker!
-    }
-    
-    func ruleSetGlobalContextExample() -> SPGlobalContext {
-        let schemaRuleset = SPSchemaRuleset(allowedList: ["iglu:com.snowplowanalytics.*/*/jsonschema/1-*-*"],
-                                            andDeniedList: ["iglu:com.snowplowanalytics.mobile/*/jsonschema/1-*-*"])
-        return SPGlobalContext(generator: { event -> [SPSelfDescribingJson]? in
-            return [
-                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "rulesetExample"] as NSObject),
-                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["eventName": event.schema] as NSObject)
-            ]
-        }, ruleset: schemaRuleset)
-    }
-    
-    func staticGlobalContextExample() -> SPGlobalContext {
-        return SPGlobalContext(staticContexts: [
-            SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "staticExample"] as NSObject),
-        ])
-    }
+    let userId = "dennis.schafroth@agillic.com"
+    // Passed down in/after login;
+    let solutionId : String = "15arnn5"
+    let key = "F6xRABtMVG9h"
+    let secret = "yOdwUJlBB6g9kZoi"
 
     func updateToken(_ newToken: String) {
         token = newToken
@@ -104,8 +46,12 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
         return self.protocolType
     }
     
-    func setup() {
-        self.tracker = self.getTracker("acme.fake.com", method: .post)
+    func setup(login : String?) {
+        let agillicSDK = MobileSDK()
+        agillicSDK.setTestAPI();
+        agillicSDK.setAuth(BasicAuth(user: key, password: secret))
+        tracker = agillicSDK.register(clientAppId: kAppId, clientAppVersion: "1.0", solutionId: solutionId, userID: login != nil ? login! : self.userId , pushNotificationToken: nil)
+        
     }
 
     func newVc(viewController: String) -> UIViewController {
@@ -169,7 +115,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
-        self.setup()
+        //self.setup()
         // This sets up the first view that will show up on our page control
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],

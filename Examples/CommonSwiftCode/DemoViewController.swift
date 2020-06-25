@@ -2,28 +2,14 @@
 //  ViewController.swift
 //  SnowplowSwiftDemo
 //
-//  Copyright (c) 2015-2020 Snowplow Analytics Ltd. All rights reserved.
-//
-//  This program is licensed to you under the Apache License Version 2.0,
-//  and you may not use this file except in compliance with the Apache License
-//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
-//  http://www.apache.org/licenses/LICENSE-2.0.
-//
-//  Unless required by applicable law or agreed to in writing,
-//  software distributed under the Apache License Version 2.0 is distributed on
-//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-//  express or implied. See the Apache License Version 2.0 for the specific
-//  language governing permissions and limitations there under.
-//
-//  Authors: Michael Hadam
-//  Copyright: Copyright (c) 2015-2020 Snowplow Analytics Ltd
-//  License: Apache License Version 2.0
+//  Created by Michael Hadam on 1/17/18.
+//  Copyright © 2018 snowplowanalytics. All rights reserved.
 //
 
 import UIKit
 import Foundation
 import CoreData
-import SnowplowTracker
+import AgillicSDK
 
 // Used for all child views
 protocol PageObserver: class {
@@ -37,7 +23,8 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     @IBOutlet weak var trackingSwitch: UISegmentedControl!
     @IBOutlet weak var protocolSwitch: UISegmentedControl!
     @IBOutlet weak var methodSwitch: UISegmentedControl!
-    weak var tracker : SPTracker?
+    weak var tracker : AgillicTracker?
+    var uuid : UUID = UUID.init();
 
     var parentPageViewController: PageViewController!
     @objc dynamic var snowplowId: String! = "demo view"
@@ -46,13 +33,14 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
         parentPageViewController = parentRef
         tracker = parentRef.tracker
     }
-
+    
     @objc func action() {
+        
         let tracking: Bool = (trackingSwitch.selectedSegmentIndex == 0)
-        if (tracking && !(tracker?.getIsTracking() ?? false)) {
-            tracker?.resumeEventTracking()
-        } else if (tracker?.getIsTracking() ?? false) {
-            tracker?.pauseEventTracking()
+        if (tracking && !(tracker?.isTracking() ?? false)) {
+            tracker?.resumeTracking()
+        } else if (tracker?.isTracking() ?? false) {
+            tracker?.pauseTracking()
         }
     }
     
@@ -88,24 +76,20 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
             .http: .https
     }
     
-    @IBAction func trackEvents(_ sender: UIButton) {
+    @IBAction func loginAndRegister(_ sender: UIButton) {
         UserDefaults.standard.set(uriField.text ?? "", forKey: keyUriField);
+        let login = self.uriField.text
         DispatchQueue.global(qos: .default).async {
-            let url = self.parentPageViewController.getCollectorUrl()
-            if url == "" {
-                return
-            }
+            self.parentPageViewController.setup(login: login)
             
-            // Update the tracker
-            self.tracker?.emitter.setUrlEndpoint(url)
-            self.tracker?.emitter.setHttpMethod(self.parentPageViewController.getMethodType())
-            self.tracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
-            
-            // Iterate the made counter
-            self.parentPageViewController.madeCounter += 28;
-            
-            // Track all types of events
-            DemoUtils.trackAll(self.parentPageViewController.tracker)
+            let event = AppViewEvent(self.uuid.uuidString, screenName: "ios_protocol://iosapp/demo/1")
+            self.parentPageViewController.tracker?.track(event)
         }
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        let event = AppViewEvent(uuid.uuidString, screenName: "ios_protocol://iosapp/demo/1")
+        parentPageViewController.tracker?.track(event)
+    }
+
 }

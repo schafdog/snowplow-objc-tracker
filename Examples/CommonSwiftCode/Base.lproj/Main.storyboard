@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BD3-Hb-Mgx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BD3-Hb-Mgx">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment version="4096" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5uI-r0-eBh">
-                                <rect key="frame" x="8" y="135" width="359" height="397"/>
+                            <stackView opaque="NO" contentMode="center" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5uI-r0-eBh">
+                                <rect key="frame" x="8" y="207" width="359" height="253.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="iOS Tracker Demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMA-qq-WAn">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="24"/>
@@ -26,58 +25,26 @@
                                         <color key="textColor" red="0.20427525043487549" green="0.47266590595245361" blue="0.96475917100906372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="plx-9z-1Ct">
-                                        <rect key="frame" x="0.0" y="44" width="359" height="299"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="plx-9z-1Ct">
+                                        <rect key="frame" x="0.0" y="32" width="359" height="179.5"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYj-dR-yWd">
-                                                <rect key="frame" x="4.5" y="0.0" width="350" height="111.5"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" notEnabled="YES"/>
-                                                </accessibility>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="To send events enter a valid collector URL and press the button below, ">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system" size="16"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Send events">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system" size="16"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            <integer key="NSUnderline" value="1"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=".  Metrics can be viewed by swiping to the next screen (this will send a screen view event).">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system" size="16"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwl-R4-ASv">
-                                                <rect key="frame" x="145" y="119.5" width="69" height="20.5"/>
+                                                <rect key="frame" x="145" y="0.0" width="69" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Sv-fa-gaB">
-                                                <rect key="frame" x="0.0" y="148" width="359" height="34"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="359" height="34"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Od-Sb-B3q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="34"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="80" id="YIH-Ze-1Vf"/>
-                                                        </constraints>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Od-Sb-B3q">
+                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hkc-q6-GKS">
-                                                        <rect key="frame" x="88" y="0.0" width="271" height="34"/>
+                                                        <rect key="frame" x="50" y="0.0" width="309" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
@@ -87,34 +54,25 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tWJ-0h-PUi">
-                                                <rect key="frame" x="0.0" y="190" width="359" height="109"/>
+                                                <rect key="frame" x="0.0" y="70.5" width="359" height="109"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="vxF-6h-kX3">
                                                         <rect key="frame" x="0.0" y="0.0" width="236" height="109"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Tracking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0F-L4-fnZ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="31"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="80" id="dcl-YH-Nbz"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="31"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shx-ct-gNC">
-                                                                <rect key="frame" x="0.0" y="39" width="80" height="31"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="80" id="JZU-la-VQ2"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="0.0" y="39" width="59" height="31"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protocol" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXt-La-KLf">
-                                                                <rect key="frame" x="0.0" y="78" width="80" height="31"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="80" id="apU-Gf-1Zx"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="0.0" y="78" width="64" height="31"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -141,7 +99,7 @@
                                                                     <action selector="toggleMethod:" destination="BYZ-38-t0r" eventType="valueChanged" id="eTT-Bc-Gne"/>
                                                                 </connections>
                                                             </segmentedControl>
-                                                            <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="9iP-5W-pc9">
+                                                            <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9iP-5W-pc9">
                                                                 <rect key="frame" x="0.0" y="78" width="115" height="32"/>
                                                                 <segments>
                                                                     <segment title="HTTP"/>
@@ -166,20 +124,18 @@
                                         <constraints>
                                             <constraint firstItem="0Sv-fa-gaB" firstAttribute="leading" secondItem="plx-9z-1Ct" secondAttribute="leading" id="07Y-ue-UHI"/>
                                             <constraint firstItem="0Sv-fa-gaB" firstAttribute="width" secondItem="tWJ-0h-PUi" secondAttribute="width" id="AyU-6O-5zE"/>
-                                            <constraint firstItem="PYj-dR-yWd" firstAttribute="leading" secondItem="plx-9z-1Ct" secondAttribute="leading" constant="4.5" id="CFm-r9-dS6"/>
-                                            <constraint firstAttribute="trailing" secondItem="PYj-dR-yWd" secondAttribute="trailing" constant="4.5" id="HNb-4y-iAg"/>
                                             <constraint firstAttribute="trailing" secondItem="0Sv-fa-gaB" secondAttribute="trailing" id="Pmk-2h-m4l"/>
                                             <constraint firstItem="tWJ-0h-PUi" firstAttribute="leading" secondItem="plx-9z-1Ct" secondAttribute="leading" id="tv3-xn-SZU"/>
                                             <constraint firstAttribute="trailing" secondItem="tWJ-0h-PUi" secondAttribute="trailing" id="vIt-ko-s1E"/>
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfX-ww-y4G">
-                                        <rect key="frame" x="0.0" y="363" width="359" height="34"/>
-                                        <state key="normal" title="Send events">
+                                        <rect key="frame" x="0.0" y="219.5" width="359" height="34"/>
+                                        <state key="normal" title="Login/Register">
                                             <color key="titleColor" red="0.20427525043487549" green="0.47266590595245361" blue="0.96475917100906372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
-                                            <action selector="trackEvents:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ErG-kw-aOU"/>
+                                            <action selector="loginAndRegister:" destination="BYZ-38-t0r" eventType="touchUpInside" id="19E-FP-5w2"/>
                                         </connections>
                                     </button>
                                 </subviews>
